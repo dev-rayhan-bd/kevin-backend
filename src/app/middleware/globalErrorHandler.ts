@@ -10,8 +10,6 @@ import handleCastError from '../../errors/handleCastError';
 import handleDuplicateError from '../../errors/handleDuplicateError';
 import AppError from '../../errors/AppError';
 
-
-
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next): void => {
   // console.log(err.statusCode);
   //setting default values
@@ -69,7 +67,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next): void => {
     message,
     errorSources,
     err,
-    stack: config.NODE_ENV === 'development' ? err?.stack : null,
+    stack: config.node_env === 'development' ? err?.stack : null,
   });
 };
 

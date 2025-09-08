@@ -69,7 +69,7 @@ export const stripeWebhookHandler = catchAsync(
 
         const content = `Your subscription purchase has failed!`;
         await sendEmail({
-          from: config.SMTP_USER as string,
+          from: config.smtp_user as string,
           to: user.email,
           subject: 'Illuminate Muslim Minds - Subscription Payment Failed',
           text: content,

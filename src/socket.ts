@@ -2,7 +2,7 @@
 import { Server } from 'http';
 import { Server as IOServer, Socket } from 'socket.io';
 
- let ioInstance: IOServer | null = null;
+let ioInstance: IOServer | null = null;
 
 const userSocketMap: { [userId: string]: string } = {};
 

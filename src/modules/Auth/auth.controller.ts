@@ -39,7 +39,7 @@ const userLogin = catchAsync(async (req, res) => {
 
   //set refress token on cookies
   res.cookie('refreshToken', refreshToken, {
-    secure: config.NODE_ENV === 'production',
+    secure: config.node_env === 'production',
     httpOnly: true,
     sameSite: 'none',
     maxAge: 1000 * 60 * 60 * 24 * 365,
