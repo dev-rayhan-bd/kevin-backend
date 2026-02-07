@@ -194,7 +194,7 @@ const replyFeedback = catchAsync(async (req: Request, res: Response) => {
   if (path) update['feedback.reply.image'] = path;
   update['feedback.reply.repliedAt'] = new Date();
 
-  const result = UserServices.replyFeedbackByAdmin(userId, update);
+  const result = UserServices.replyFeedbackByAdmin(userId as string, update);
 
   sendResponse(res, {
     statusCode: 200,
