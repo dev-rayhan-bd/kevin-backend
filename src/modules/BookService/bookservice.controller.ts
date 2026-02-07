@@ -15,7 +15,7 @@ import { projectStatus, ServiceStatus } from './bookservice.interface';
 const getSpecUserBookService = catchAsync(async(req:Request,res:Response)=>{
   const {userId}=req.params;
 
-  const result = await BookServices.getSpecUserBookServiceFromDB(userId);
+  const result = await BookServices.getSpecUserBookServiceFromDB(userId as string);
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -39,7 +39,7 @@ const getAllBookedServices = catchAsync(async(req:Request,res:Response)=>{
 const getAllBookedServicesForSingleContractor = catchAsync(async(req:Request,res:Response)=>{
 const meId = req?.user?.userId
 
-  const result = await BookServices.getAllSingleContrctrOrderFromDB(meId);
+  const result = await BookServices.getAllSingleContrctrOrderFromDB(meId as string);
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -57,7 +57,7 @@ const createBookService = async (
 //   console.log("create revieew-->",req.body);
 const meId = req?.user?.userId
   try {
-    const result = await BookServices.addBookServicesIntoDB(req.body,meId)
+    const result = await BookServices.addBookServicesIntoDB(req.body,meId as string)
 
     sendResponse(res, {
       success: true,
@@ -137,7 +137,7 @@ const rejectSingleProject = catchAsync(async(req:Request,res:Response)=>{
 const getSingleBookedOrder = catchAsync(async(req:Request,res:Response)=>{
   const {id}=req.params;
 
-  const result = await BookServices.getSingleBookedOrderFromDB(id);
+  const result = await BookServices.getSingleBookedOrderFromDB(id as string);
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -164,7 +164,7 @@ const acceptOrRejectProject = async (
   }
 
   try {
-    const result = await BookServices.acceptOrRejectProjectIntoDb(status as projectStatus,id);
+    const result = await BookServices.acceptOrRejectProjectIntoDb(status as projectStatus,id as string);
 
     sendResponse(res, {
       success: true,

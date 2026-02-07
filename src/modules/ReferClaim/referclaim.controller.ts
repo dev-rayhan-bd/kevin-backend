@@ -12,7 +12,7 @@ const claimReferral = catchAsync(async (req: Request, res: Response) => {
     // console.log("me id-------->",meId);
   const { relatedUserId, type } = req.body; // type: 'referrer' | 'referred'
   // console.log("relatedUserId, type-------->",relatedUserId, type);
-  const claim = await ReferClaimServices.claimReferralReward(meId, relatedUserId, type);
+  const claim = await ReferClaimServices.claimReferralReward(meId as string, relatedUserId, type);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -26,7 +26,7 @@ const claimReferral = catchAsync(async (req: Request, res: Response) => {
 const getHistory = catchAsync(async (req: Request, res: Response) => {
     const meId =req?.user?.userId; 
 
-  const history = await ReferClaimServices.getReferralHistory(meId);
+  const history = await ReferClaimServices.getReferralHistory(meId as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -39,7 +39,7 @@ const getHistory = catchAsync(async (req: Request, res: Response) => {
 
 const getAllRefferClaimed = catchAsync(async(req:Request,res:Response)=>{
 const userId =req?.user?.userId; 
-  const result = await ReferClaimServices.getAllReferClaimedFromDB(userId);
+  const result = await ReferClaimServices.getAllReferClaimedFromDB(userId as string);
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,

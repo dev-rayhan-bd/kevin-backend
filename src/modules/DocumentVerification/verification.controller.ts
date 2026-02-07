@@ -93,7 +93,7 @@ const status = payload?.status
 
     // console.log("Data with file paths: ", data);
     
-    const result = await verificationServices.updateDocApproveStatusFromDB(id,status)
+    const result = await verificationServices.updateDocApproveStatusFromDB(id as string,status)
     sendResponse(res, {
       success: true,
       message: `Document ${status}`,

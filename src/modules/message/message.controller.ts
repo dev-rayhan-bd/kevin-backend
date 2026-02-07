@@ -21,7 +21,7 @@ const getUsersForSidebar = catchAsync(async (req, res) => {
 const getMessages = catchAsync(async (req, res) => {
   const { id: userToChatId } = req.params;
 
-  const result = await messageService.getMessagesFromDB(userToChatId, req.user);
+  const result = await messageService.getMessagesFromDB(userToChatId, req.user );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

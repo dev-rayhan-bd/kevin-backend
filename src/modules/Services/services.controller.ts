@@ -29,7 +29,7 @@ const getAllServicesForSpecUser = catchAsync(
   async (req: Request, res: Response) => {
     const contractorId = req?.user?.userId;
     const result =
-      await ServicesService.getAllServicesForSpecUserFromDB(contractorId);
+      await ServicesService.getAllServicesForSpecUserFromDB(contractorId as string);
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -40,7 +40,7 @@ const getAllServicesForSpecUser = catchAsync(
 );
 const getSingleServices = catchAsync(async (req: Request, res: Response) => {
   const serviceId = req.params.id;
-  const result = await ServicesService.getSingleServicesFromDB(serviceId);
+  const result = await ServicesService.getSingleServicesFromDB(serviceId as string);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -148,7 +148,7 @@ const createServices = async (
 // });
 const initiateOrderPayment = catchAsync(async (req: Request, res: Response) => {
     const meId = req?.user?.userId
-    const user = await UserModel.findById(meId);
+    const user = await UserModel.findById(meId as string);
     // console.log("user------>",user?.email);
     const email = user?.email
   const { item} = req.body; // use item, not items
@@ -158,7 +158,7 @@ const initiateOrderPayment = catchAsync(async (req: Request, res: Response) => {
     throw new AppError(httpStatus.BAD_REQUEST, 'No item in the order.');
   }
 
-  const service = await ServiceModel.findById(item.serviceId);
+  const service = await ServiceModel.findById(item.serviceId );
   if (!service) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Service not found.');
   }
@@ -202,7 +202,7 @@ const initiateOrderPayment = catchAsync(async (req: Request, res: Response) => {
 const acceptSingleProject = catchAsync(async (req: Request, res: Response) => {
   const { serviceId } = req.params;
 
-  const result = await ServicesService.acceptProject(serviceId);
+  const result = await ServicesService.acceptProject(serviceId as string);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -214,7 +214,7 @@ const acceptSingleProject = catchAsync(async (req: Request, res: Response) => {
 const rejectSingleProject = catchAsync(async (req: Request, res: Response) => {
   const { serviceId } = req.params;
 
-  const result = await ServicesService.rejectProject(serviceId);
+  const result = await ServicesService.rejectProject(serviceId as string);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -8,7 +8,7 @@ import catchAsync from '../../app/utils/catchAsync';
 
 const getAllQuoteForSpecContctr = catchAsync(async(req:Request,res:Response)=>{
   const meId = req?.user?.userId;
-  const result = await QuoteServices.getAllQuoteForSpecContctrFromDB(meId);
+  const result = await QuoteServices.getAllQuoteForSpecContctrFromDB(meId as string);
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -19,7 +19,7 @@ const getAllQuoteForSpecContctr = catchAsync(async(req:Request,res:Response)=>{
 })
 const getSingleQuote = catchAsync(async(req:Request,res:Response)=>{
   const id = req?.params?.id;
-  const result = await QuoteServices.getSingleQuoteFromDB(id);
+  const result = await QuoteServices.getSingleQuoteFromDB(id as string);
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -65,7 +65,7 @@ const updateQuoteStatus = async (
     const status = req?.body?.status
 
   try {
-    const result = await QuoteServices.updateQuoteStatusIntoDB(status,quoteId);
+    const result = await QuoteServices.updateQuoteStatusIntoDB(status,quoteId as string);
 
     sendResponse(res, {
       success: true,
@@ -82,7 +82,7 @@ const updateQuoteStatus = async (
 const getDashStats = catchAsync(async (req: Request, res: Response) => {
   const meId = req?.user?.userId;
 
-  const result = await QuoteServices.dashboardStatsFromDB(meId);
+  const result = await QuoteServices.dashboardStatsFromDB(meId as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

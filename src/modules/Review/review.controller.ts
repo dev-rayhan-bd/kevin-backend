@@ -9,7 +9,7 @@ import catchAsync from '../../app/utils/catchAsync';
 
 const getAllReview = catchAsync(async(req:Request,res:Response)=>{
  const contractorId = req?.user?.userId
-  const result = await ReviewServices.getAllReviewFromDB({contractorId});
+  const result = await ReviewServices.getAllReviewFromDB({contractorId });
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,

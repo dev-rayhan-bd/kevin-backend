@@ -11,7 +11,7 @@ const getAllNotifications = catchAsync(async (req: Request, res: Response) => {
 
   const result = await notificationServices.getAllNotificationsFromDB(
     req.query,
-    userId,
+    userId as string,
   );
 
   sendResponse(res, {
@@ -27,7 +27,7 @@ const markANotificationAsRead = catchAsync(
   async (req: Request, res: Response) => {
     const notificationId = req.params.id;
     const result =
-      await notificationServices.markANotificationAsReadIntoDB(notificationId);
+      await notificationServices.markANotificationAsReadIntoDB(notificationId as string);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -44,7 +44,7 @@ const markNotificationsAsRead = catchAsync(
     const userId = req.params.id;
 
     const result =
-      await notificationServices.markNotificationsAsReadIntoDB(userId);
+      await notificationServices.markNotificationsAsReadIntoDB(userId as string);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -61,7 +61,7 @@ const getUnseenNotificationCount = catchAsync(
     const userId = req.params.id;
 
     const result =
-      await notificationServices.getAllUnseenNotificationCountFromDB(userId);
+      await notificationServices.getAllUnseenNotificationCountFromDB(userId as string);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
