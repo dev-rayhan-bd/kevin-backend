@@ -34,6 +34,7 @@ app.use(
       'http://localhost:5174',
       'https://dashboard.yourtradesource.com',
       'https://yourtradesource.com',
+      'https://www.yourtradesource.com'
       
      
     ],
