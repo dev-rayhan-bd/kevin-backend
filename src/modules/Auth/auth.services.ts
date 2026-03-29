@@ -42,7 +42,7 @@ const loginUser = async (payload: TLoginUser) => {
   }
   if (!(await UserModel.isPasswordMatched(payload?.password, user?.password))) {
     throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid Credentials!');
-  }
+  }   
   const jwtPayload = {
     userId: user?._id,
     role: user?.role,

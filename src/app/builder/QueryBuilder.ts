@@ -122,15 +122,17 @@ filter() {
 
     this.modelQuery = this.modelQuery.skip(skip).limit(limit);
     return this;
-  }
+}
 
-  // Fields selection (allow dynamic field inclusion/exclusion)
+// Fields selection (allow dynamic field inclusion/exclusion)
+
   fields() {
     const fields =
       (this.query?.fields as string)?.split(',')?.join(' ') || '-__v'; // Default to excluding __v field
     this.modelQuery = this.modelQuery.select(fields);
     return this;
   }
+  
 
   // Count total records for pagination metadata
   async countTotal() {

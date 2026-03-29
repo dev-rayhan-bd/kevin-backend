@@ -21,7 +21,7 @@ const getAllArticle = catchAsync(async(req:Request,res:Response)=>{
 })
 const getSingleArticle = catchAsync(async(req:Request,res:Response)=>{
   const { id } = req.params;
-  const result = await ArticleServices.getSingleArticleFromDB(id);
+  const result = await ArticleServices.getSingleArticleFromDB(id as string);
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -32,7 +32,7 @@ const getSingleArticle = catchAsync(async(req:Request,res:Response)=>{
 })
 const getSingleUserArticle = catchAsync(async(req:Request,res:Response)=>{
  const id = req?.user?.userId
-  const result = await ArticleServices.getSingleUserArticleFromDB(id);
+  const result = await ArticleServices.getSingleUserArticleFromDB(id as string);
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -68,7 +68,7 @@ payload.image = path
 const deleteArticle = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const result = await ArticleServices.deleteArticleFromDB(id);
+  const result = await ArticleServices.deleteArticleFromDB(id as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -92,7 +92,7 @@ const status = payload?.status
 
     // console.log("Data with file paths: ", data);
     
-    const result = await ArticleServices.updateBlogApproveStatusFromDB(id,status)
+    const result = await ArticleServices.updateBlogApproveStatusFromDB(id as string,status)
     sendResponse(res, {
       success: true,
       message: `Blog ${status}`,

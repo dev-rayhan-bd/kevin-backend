@@ -14,7 +14,7 @@ import {
 const changeStatus = catchAsync(async (req, res) => {
   const id = req.params.id;
 
-  const result = await UserServices.changeStatus(id, req.body);
+  const result = await UserServices.changeStatus(id as string, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -41,7 +41,7 @@ const changeProPic = catchAsync(
     };
 
     //  Update user's image field
-    const result = await UserServices.changeProfilePicture(id, payload);
+    const result = await UserServices.changeProfilePicture(id as string, payload);
 
     //  Send response
     sendResponse(res, {
@@ -66,7 +66,7 @@ const updateProfile = catchAsync(
     }
 
     // Update user's profile in the database
-    const result = await UserServices.updateProfileFromDB(id, payload);
+    const result = await UserServices.updateProfileFromDB(id as string, payload);
 
     // Send response
     sendResponse(res, {
@@ -128,7 +128,7 @@ const updateContractorProfile = catchAsync(
 
     //  Update contractor profile in DB
     const result = await UserServices.updateContractorProfileFromDB(
-      id,
+      id as string,
       payload,
     );
 
@@ -149,7 +149,7 @@ const addReport = catchAsync(async (req: Request, res: Response) => {
   const path = `${req.protocol}://${req.get('host')}/uploads/${req.file?.filename}`;
   reportData.image = path;
   // console.log("reported data--->",reportData);
-  const result = await UserServices.addReportToContractor(userId, reportData);
+  const result = await UserServices.addReportToContractor(userId as string, reportData);
 
   sendResponse(res, {
     statusCode: 200,
@@ -168,7 +168,7 @@ const addFeedback = catchAsync(async (req: Request, res: Response) => {
   // console.log("feedback data--->",feedbackData);
 
   const result = await UserServices.addFeedbackToContractor(
-    userId,
+    userId as string,
     feedbackData,
   );
 
@@ -194,7 +194,7 @@ const replyFeedback = catchAsync(async (req: Request, res: Response) => {
   if (path) update['feedback.reply.image'] = path;
   update['feedback.reply.repliedAt'] = new Date();
 
-  const result = UserServices.replyFeedbackByAdmin(userId, update);
+  const result = UserServices.replyFeedbackByAdmin(userId as string, update);
 
   sendResponse(res, {
     statusCode: 200,
@@ -225,7 +225,7 @@ const getAllFeedback = catchAsync(async (req: Request, res: Response) => {
 
 const getSingleUser = catchAsync(async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const result = await UserServices.getSingleUserFromDB(userId);
+  const result = await UserServices.getSingleUserFromDB(userId as string);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -258,7 +258,7 @@ const createContractor = async (
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
   const { userId } = req.params;
 
-  const result = await UserServices.deleteUserFromDB(userId);
+  const result = await UserServices.deleteUserFromDB(userId as string);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -287,7 +287,7 @@ const updateUserStatus = async (req: Request, res: Response) => {
 
 
     // Call the service to update the user's status
-    const updatedUser = await UserServices.updateUserStatusService(userId, status);
+    const updatedUser = await UserServices.updateUserStatusService(userId as string, status);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -330,7 +330,7 @@ const payload ={
 const getAllReview = catchAsync(async(req:Request,res:Response)=>{
  const userId = req?.params?.id
  console.log("userId--->",userId);
-  const result = await UserServices.getAllReviewFromDB({userId});
+  const result = await UserServices.getAllReviewFromDB({userId });
   sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,

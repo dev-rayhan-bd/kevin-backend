@@ -12,7 +12,7 @@ const createConversation = catchAsync(async (req: Request, res: Response) => {
     throw new Error('Member ids are required');
   }
 
-  const conv = await conversationServices.retriveConversationByMemberIds(memberIds);
+  const conv = await conversationServices.retriveConversationByMemberIds(memberIds );
 
   if (conv) {
     conv.members = conv.members.filter((memberId) => memberId._id.toString() !== req.user!.id);
@@ -49,7 +49,7 @@ const createConversation = catchAsync(async (req: Request, res: Response) => {
 
 const getConversationListByUserId = catchAsync(async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const conversationList = await conversationServices.retriveConversationListByUserId(userId);
+  const conversationList = await conversationServices.retriveConversationListByUserId(userId as string);
   if (!conversationList) {
     throw new Error('Conversation not found');
   }
@@ -73,7 +73,7 @@ const getConversationListByUserId = catchAsync(async (req: Request, res: Respons
 
 const getConversationById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const conv = await conversationServices.retriveConversationByConversationId(id);
+  const conv = await conversationServices.retriveConversationByConversationId(id as string);
   if (!conv) {
     throw new Error('Conversation not found');
   }

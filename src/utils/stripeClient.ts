@@ -2,6 +2,9 @@ import Stripe from 'stripe';
 import config from '../app/config';
 
 
+
+// src/utils/stripeClient.ts
 export const stripe = new Stripe(config.stripe_secret_key as string, {
-  apiVersion: '2025-07-30.basil',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  apiVersion: '2025-08-27.basil' as any, 
 });

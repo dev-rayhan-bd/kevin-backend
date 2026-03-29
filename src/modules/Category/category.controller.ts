@@ -43,7 +43,7 @@ const deleteCategory = async (
   const {id}=req.params
   //   console.log("create contractor-->",req.body);
   try {
-    const result = await CategoryServices.deleteCateFromDB(id);
+    const result = await CategoryServices.deleteCateFromDB(id as string);
 
     sendResponse(res, {
       success: true,
@@ -83,7 +83,7 @@ const editCategory = async (
   const {id}=req.params
   const payload = req.body
   try {
-    const result = await CategoryServices.editCategoryFromDB(payload,id);
+    const result = await CategoryServices.editCategoryFromDB(payload,id as string);
 
     sendResponse(res, {
       success: true,
