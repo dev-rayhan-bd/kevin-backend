@@ -20,6 +20,7 @@ import privacyPolicyRouter from '../../modules/PrivacyPolicy/privacyPolicy.route
 import termsRouter from '../../modules/Terms/terms.route';
 import { MembershipRoutes } from '../../modules/Membership/membership.route';
 import { vipContractorRoutes } from '../../modules/VipContractor/vipcontractor.routes';
+import { CMSRoutes } from '../../modules/CMS/cms.routes';
 
 
 const router = Router();
@@ -108,6 +109,10 @@ const moduleRoutes = [
   {
     path: '/vipContractor',
     route:vipContractorRoutes,
+  },
+  {
+    path: '/cms',
+    route:CMSRoutes,
   },
  
 ];

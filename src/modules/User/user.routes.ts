@@ -13,7 +13,8 @@ import {
 } from './user.validation';
 import { USER_ROLE } from '../Auth/auth.constant';
 import { UserControllers } from './user.controller';
-import { upload } from '../../app/middleware/upload';
+import { upload } from '../../app/middleware/multer';
+
 
 const router = express.Router();
 

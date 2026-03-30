@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { NextFunction, Request, Response } from 'express';
-import { upload } from '../../app/middleware/upload';
+
 import { VerificationControllers } from './verification.controller';
 import auth from '../../app/middleware/auth';
 import { USER_ROLE } from '../Auth/auth.constant';
+import { upload } from '../../app/middleware/multer';
 
 
 const router = express.Router();

@@ -6,7 +6,8 @@ import { AuthControllers } from './auth.controller';
 import auth from '../../app/middleware/auth';
 import { AuthValidation } from './auth.validation';
 import { USER_ROLE } from './auth.constant';
-import { upload } from '../../app/middleware/upload';
+import { upload } from '../../app/middleware/multer';
+
 
 const router = express.Router();
 

@@ -7,8 +7,9 @@ import validateRequest from '../../app/middleware/validateRequest';
 import { USER_ROLE } from '../Auth/auth.constant';
 import { vipMemberSchema } from './vipmember.validatin';
 
-import { upload } from '../../app/middleware/upload';
+
 import { VipMemberControllers } from './vipmember.controller';
+import { upload } from '../../app/middleware/multer';
 
 
 

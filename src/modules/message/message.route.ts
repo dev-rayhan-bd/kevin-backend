@@ -2,7 +2,8 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { messageController } from './message.controller';
 import auth from '../../app/middleware/auth';
 import { USER_ROLE } from '../Auth/auth.constant';
-import { upload } from '../../app/middleware/upload';
+import { upload } from '../../app/middleware/multer';
+
 
 const router = Router();
 

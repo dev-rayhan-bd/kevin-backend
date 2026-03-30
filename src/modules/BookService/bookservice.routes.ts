@@ -9,7 +9,8 @@ import { USER_ROLE } from '../Auth/auth.constant';
 
 import { IBookServicesSchema, updateTaskZodSchema } from './bookservice.validation';
 import { BookServicesControllers } from './bookservice.controller';
-import { upload } from '../../app/middleware/upload';
+import { upload } from '../../app/middleware/multer';
+
 
 
 

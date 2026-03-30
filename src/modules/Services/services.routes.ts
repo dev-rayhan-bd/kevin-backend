@@ -7,7 +7,8 @@ import auth from '../../app/middleware/auth';
 import { USER_ROLE } from '../Auth/auth.constant';
 // import { serviceValidationSchema } from './services.validation';
 import { servicesControllers } from './services.controller';
-import { upload } from '../../app/middleware/upload';
+import { upload } from '../../app/middleware/multer';
+
 
 
 
