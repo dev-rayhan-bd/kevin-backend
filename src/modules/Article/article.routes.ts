@@ -6,9 +6,9 @@ import validateRequest from '../../app/middleware/validateRequest';
 
 import { USER_ROLE } from '../Auth/auth.constant';
 
-import { upload } from '../../app/middleware/upload';
 import { ArticleControllers } from './article.controller';
 import { articleZodSchema } from './article.validation';
+import { upload } from '../../app/middleware/multer';
 
 const router = express.Router();
 
