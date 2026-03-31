@@ -1,41 +1,28 @@
 import { Schema, model, Document } from 'mongoose';
-
-export interface ISection {
-  title: string;
-  content: string;
-  image: string;
-  isVisible: boolean;
-}
-
-interface IHomePageCMS extends Document {
-  pageName: string; // "Home"
-  // লগইন ছাড়া হোমপেজ (Landing Page)
-  landingPage: {
-    banner: ISection;
-    projectsNear: ISection;
-    contractorNear: ISection;
-    recentArticle: ISection;
-  };
-  // লগইন করার পর হোমপেজ (Home Page)
-  loggedInPage: {
-    welcomeBanner: ISection;
-    services: ISection;
-    expertContractor: ISection;
-    membershipBanner: ISection;
-    recentArticle: ISection;
-  };
-}
+import { ICMS, ISection, INavItem } from './cms.interface';
 
 const SectionSchema = new Schema<ISection>({
   title: { type: String, default: "" },
   content: { type: String, default: "" },
   image: { type: String, default: "" },
+   features: { type: [String], default: [] },
   isVisible: { type: Boolean, default: true },
 }, { _id: false });
 
-const HomePageCMSSchema = new Schema<IHomePageCMS>({
-  pageName: { type: String, required: true, unique: true, default: "Home" },
-  landingPage: {
+const NavItemSchema = new Schema<INavItem>({
+  label: { type: String, required: true },
+  path: { type: String, required: true },
+  isVisible: { type: Boolean, default: true },
+}, { _id: false });
+
+const CMSSchema = new Schema<ICMS & Document>({
+  pageKey: { 
+    type: String, 
+    required: true, 
+    unique: true,
+    enum: ['home', 'interior', 'exterior', 'lawn-garden', 'specialized', 'articles', 'referral', 'membership', 'global'] 
+  },
+   landingPage: {
     banner: SectionSchema,
     projectsNear: SectionSchema,
     contractorNear: SectionSchema,
@@ -47,7 +34,15 @@ const HomePageCMSSchema = new Schema<IHomePageCMS>({
     expertContractor: SectionSchema,
     membershipBanner: SectionSchema,
     recentArticle: SectionSchema,
-  }
+  },
+  sections: { type: Map, of: SectionSchema },
+  branding: {
+    logo: { type: String, default: "" },
+    primaryColor: { type: String, default: "#1D69E1" },
+    secondaryColor: { type: String, default: "#ABE7B4" },
+  },
+  navigation: [NavItemSchema],
+  sidebar: [NavItemSchema],
 }, { timestamps: true });
 
-export const HomePageCMSModel = model<IHomePageCMS>('HomePageCMS', HomePageCMSSchema);
+export const CMSModel = model<ICMS & Document>('CMS', CMSSchema);
