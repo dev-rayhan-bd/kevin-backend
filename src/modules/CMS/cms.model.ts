@@ -8,7 +8,15 @@ const SectionSchema = new Schema<ISection>({
    features: { type: [String], default: [] },
   isVisible: { type: Boolean, default: true },
 }, { _id: false });
-
+const FooterSchema = new Schema({
+  address: { type: String, default: "" },
+  email: { type: String, default: "" },
+  phone: { type: String, default: "" },
+  copyRightText: { type: String, default: "© 2025 Sparktech. All rights reserved." },
+  socialLinks: [
+    { platform: String, url: String }
+  ]
+}, { _id: false });
 const NavItemSchema = new Schema<INavItem>({
   label: { type: String, required: true },
   path: { type: String, required: true },
@@ -35,6 +43,7 @@ const CMSSchema = new Schema<ICMS & Document>({
     membershipBanner: SectionSchema,
     recentArticle: SectionSchema,
   },
+   footer: FooterSchema,
   sections: { type: Map, of: SectionSchema },
   branding: {
     logo: { type: String, default: "" },

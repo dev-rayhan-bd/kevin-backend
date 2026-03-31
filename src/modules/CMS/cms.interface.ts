@@ -1,3 +1,15 @@
+export interface ISocialLink {
+  platform: string;
+  url: string;
+}
+
+export interface IFooter {
+  address: string;
+  email: string;
+  phone: string;
+  copyRightText: string;
+  socialLinks: ISocialLink[];
+}
 export interface ISection {
   title?: string;
   content?: string;
@@ -29,6 +41,7 @@ export interface ICMS {
     membershipBanner: ISection;
     recentArticle: ISection;
   };
+   footer?: IFooter; 
   sections?: Record<string, ISection>; // dynamic section like 'banner', 'about'
   branding?: {
     logo: string;
