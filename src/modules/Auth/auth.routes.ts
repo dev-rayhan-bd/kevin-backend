@@ -23,8 +23,6 @@ router.post(
     },
 
   validateRequest(AuthValidation.registerUserValidationSchema),
-
-
   AuthControllers.registerUser,
 );
 router.post('/login',

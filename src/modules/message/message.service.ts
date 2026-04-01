@@ -1,7 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { Message } from './message.model';
 import { TMessage } from './message.interface';
-import { UserModel } from '../User/user.model';
+
 import { getIO, getReceiverSocketId } from '../../socket';
 import { Types } from 'mongoose';
 import { INotification } from '../Notification/notification.interface';
@@ -20,21 +20,11 @@ import createAndSendNotification from '../../utils/sendNotification';
 const getUsersForSidebarFromDB = async (userData: JwtPayload) => {
   const userId = new Types.ObjectId(userData.userId);
 
-  // 1. my messaged users
-  const recentMessages = await Message.aggregate([
+
+  const recentChats = await Message.aggregate([
     {
       $match: {
         $or: [{ senderId: userId }, { receiverId: userId }],
-      },
-    },
-    {
-      $project: {
-        otherUserId: {
-          $cond: [{ $eq: ['$senderId', userId] }, '$receiverId', '$senderId'],
-        },
-        text: 1,
-        image: 1,
-        createdAt: 1,
       },
     },
     {
@@ -42,45 +32,38 @@ const getUsersForSidebarFromDB = async (userData: JwtPayload) => {
     },
     {
       $group: {
-        _id: '$otherUserId',
-        lastMessage: { $first: '$$ROOT' },
+        _id: {
+          $cond: [{ $eq: ["$senderId", userId] }, "$receiverId", "$senderId"],
+        },
+        lastMessage: { $first: "$$ROOT" },
       },
     },
     {
       $lookup: {
-        from: UserModel.collection.name, // ensure correct collection name
-        localField: '_id',
-        foreignField: '_id',
-        as: 'user',
+        from: "users", 
+        localField: "_id",
+        foreignField: "_id",
+        as: "userDetails",
       },
     },
-    { $unwind: '$user' },
+    { $unwind: "$userDetails" },
     {
       $project: {
-        _id: '$user._id',
-        role:'$user.role',
-        firstName: '$user.firstName',
-        lastName: '$user.lastName',
-        image: '$user.image',
+        _id: 1,
         lastMessage: 1,
+        firstName: "$userDetails.firstName",
+        lastName: "$userDetails.lastName",
+        image: "$userDetails.image",
+        role: "$userDetails.role", 
       },
+    },
+    {
+      $sort: { "lastMessage.createdAt": -1 }, 
     },
   ]);
 
-  // 2. rest users
-  const messagedUserIds = recentMessages.map((u) => u._id);
-
-  const otherUsers = await UserModel.find({
-    _id: { $ne: userId, $nin: messagedUserIds },
-  }).select('-password');
-
-  // 3. Combine & messaged users first
-  return [
-    ...recentMessages,
-    ...otherUsers.map((u) => ({ ...u.toObject(), lastMessage: null })),
-  ];
+  return recentChats;
 };
-
 // get Messages From DB
 const getMessagesFromDB = async (
   userToChatId: string,
