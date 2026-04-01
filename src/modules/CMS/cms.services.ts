@@ -1,16 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HomePageCMSModel } from './cms.model';
 
-const getHomePageData = async () => {
-  return await HomePageCMSModel.findOne({ pageName: "Home" });
+import { CMSModel } from './cms.model';
+
+
+const getCMSDataFromDB = async (pageKey: string) => {
+  return await CMSModel.findOne({ pageKey });
 };
 
-const updateHomePageSection = async (payload: any) => {
-  return await HomePageCMSModel.findOneAndUpdate(
-    { pageName: "Home" },
+
+const updateCMSDataIntoDB = async (pageKey: string, payload: any) => {
+  return await CMSModel.findOneAndUpdate(
+    { pageKey },
     { $set: payload },
-    { upsert: true, new: true }
+    { upsert: true, new: true, runValidators: true }
   );
 };
 
-export const CMSService = { getHomePageData, updateHomePageSection };
+export const CMSService = {
+  getCMSDataFromDB,
+  updateCMSDataIntoDB,
+};
