@@ -19,7 +19,7 @@ const FooterSchema = new Schema({
 }, { _id: false });
 const NavItemSchema = new Schema<INavItem>({
   label: { type: String, required: true },
-  path: { type: String, required: true },
+  path: { type: String},
   isVisible: { type: Boolean, default: true },
 }, { _id: false });
 
