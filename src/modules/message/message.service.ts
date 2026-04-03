@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { JwtPayload } from 'jsonwebtoken';
 import { Message } from './message.model';
 import { TMessage } from './message.interface';
 
-import { getIO, getReceiverSocketId } from '../../socket';
+
 import { Types } from 'mongoose';
 import { INotification } from '../Notification/notification.interface';
 import { ENUM_NOTIFICATION_TYPE } from '../Notification/notification.constant';
 import createAndSendNotification from '../../utils/sendNotification';
+import { getIO, getReceiverSocketId } from '../../utils/socket';
 
 // get Users For Sidebar From DB
 // const getUsersForSidebarFromDB = async (userData: JwtPayload) => {
@@ -82,6 +84,8 @@ const getMessagesFromDB = async (
 };
 
 // send Message Into DB
+// src/modules/message/message.service.ts
+
 const sendMessageIntoDB = async (
   receiverId: string,
   payload: Pick<TMessage, 'text' | 'image'>,
@@ -94,26 +98,27 @@ const sendMessageIntoDB = async (
     throw new Error('Message must contain either text or image');
   }
 
-  const newMessage = new Message({
+  const newMessage = await Message.create({
     senderId,
     receiverId,
     text: text || null,
     image: image || null,
   });
 
-  await newMessage.save();
-
   const receiverSocketId = getReceiverSocketId(receiverId);
-
   const ioInstance = getIO();
+
   if (receiverSocketId && ioInstance) {
-    ioInstance.to(receiverSocketId).emit('newMessage', newMessage);
+    // ⬇️ মেসেজটিকে প্লেইন অবজেক্টে রূপান্তর করে পাঠানো হচ্ছে
+    ioInstance.to(receiverSocketId).emit('newMessage', newMessage.toJSON());
+    
+    console.log(`🚀 Message emitted to User: ${receiverId} on Socket: ${receiverSocketId}`);
 
     const notificationData: INotification = {
       title: 'New message.',
       message: 'You Have a new message.',
-      receiver: newMessage.receiverId,
-      type: ENUM_NOTIFICATION_TYPE.USER,
+      receiver: newMessage.receiverId as any,
+      type: ENUM_NOTIFICATION_TYPE.USER as any,
     };
 
     await createAndSendNotification(
@@ -121,6 +126,8 @@ const sendMessageIntoDB = async (
       notificationData,
       receiverSocketId,
     );
+  } else {
+    console.log(`⚠️ User ${receiverId} is offline. Message saved to DB only.`);
   }
 
   return newMessage;
