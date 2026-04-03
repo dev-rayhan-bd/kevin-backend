@@ -3,7 +3,8 @@ import { Server } from 'http';
 import app from './app';
 import config from './app/config';
 import mongoose from 'mongoose';
-import { initializeSocket } from './socket';
+import { initializeSocket } from './utils/socket';
+
 
 let server: Server;
 
@@ -11,9 +12,9 @@ async function main() {
   try {
     await mongoose.connect(config.database_url as string);
 
-    server = app.listen(config.port, () => {
-      console.log(`app is listening on port ${config.port}`);
-    });
+  server = app.listen(Number(config.port), "0.0.0.0", () => {
+  console.log(`🚀 Server is running on port ${config.port}`);
+});
 
     initializeSocket(server);
   } catch (err) {
