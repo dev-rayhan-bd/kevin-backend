@@ -28,7 +28,7 @@ const CMSSchema = new Schema<ICMS & Document>({
     type: String, 
     required: true, 
     unique: true,
-    enum: ['home', 'interior', 'exterior', 'lawn-garden', 'specialized', 'articles', 'referral', 'membership', 'global'] 
+    enum: ['home', 'interior', 'exterior', 'lawn-garden', 'specialized', 'articles', 'referral', 'membership', 'global','vip-contractor'] 
   },
    landingPage: {
     banner: SectionSchema,
