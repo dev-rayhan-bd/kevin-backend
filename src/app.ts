@@ -29,6 +29,7 @@ app.use(
       'http://localhost:3000',
       'http://localhost:3001',
       'http://10.10.20.13:5000',
+      'http://10.10.20.20:5173',
       'http://10.10.20.13:3000',
       'http://localhost:5173',
       'http://localhost:5174',
