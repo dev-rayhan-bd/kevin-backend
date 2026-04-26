@@ -35,7 +35,10 @@ app.use(
       'http://localhost:5174',
       'https://dashboard.yourtradesource.com',
       'https://yourtradesource.com',
-      'https://www.yourtradesource.com'
+      'https://www.yourtradesource.com',
+      'https://kevin-website-virid-zeta.vercel.app',
+      'https://kevin-website-ktfc.vercel.app'
+
       
      
     ],
